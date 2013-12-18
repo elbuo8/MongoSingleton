@@ -2,7 +2,6 @@
 var MongoClient = require('mongodb').MongoClient;
 
 function MongoSingle (addr, options, cb) {
-  if (addr === undefined && process.env.MONGO_URL !== undefined) addr = process.env.MONGO_URL;
   if (options instanceof Function) {
     cb = options;
     options = null;
