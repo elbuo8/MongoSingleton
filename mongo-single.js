@@ -1,16 +1,21 @@
 
 var MongoClient = require('mongodb').MongoClient;
 
-function MongoSingle (addr, options) {
-  console.log(addr);
-  if (addr === undefined) addr = process.env.MONGO_URL;
-  if (MongoSingle.prototype._db && MongoSingle.prototype._addr === addr && MongoSingle.prototype._options == options) return MongoSingle.prototype._db;
+function MongoSingle (addr, options, cb) {
+  if (addr === undefined && process.env.MONGO_URL !== undefined) addr = process.env.MONGO_URL;
+  if (options instanceof Function) {
+    cb = options;
+    options = null;
+  }
+  if (addr === undefined) {
+    if (cb !== undefined) cb('No address found');
+    return new Error('No address found');
+  }
+  if (MongoSingle.prototype._db !== undefined && MongoSingle.prototype._addr === addr) return MongoSingle.prototype._db;
   MongoClient.connect(addr, options, function (e, db) {
-    if (e) return null;
     MongoSingle.prototype._db = db;
     MongoSingle.prototype._addr = addr;
-    MongoSingle.prototype._options = options;
-    return db;
+    if (cb !== undefined) cb(e, db);
   });
 }
 
