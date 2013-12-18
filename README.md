@@ -11,7 +11,6 @@ The MongoDB Driver for Node.js doesn't need to make multiple connections from th
 
 ```js
 //app.js - Set everything up
-
 MongoSingle = require('mongo-single');
 
 new MongoSingle(process.env.MONGO_URL); //Set the connection but don't verify for errors or anything
