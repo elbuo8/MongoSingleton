@@ -1,6 +1,6 @@
 {
   "name": "mongo-single",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Simple way to have a single connection to mongodb in your app by using require",
   "main": "mongo-single.js",
   "scripts": {
