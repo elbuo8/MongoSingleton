@@ -1,4 +1,4 @@
-#Mongo Singleton
+#Mongo Single
 
 Ever had to build a Node app that required you to:
 
@@ -10,12 +10,10 @@ The MongoDB Driver for Node.js doesn't need to make multiple connections from th
 ### Example
 
 ```js
-//app.js - Set everything up
-MongoSingle = require('mongo-single');
-
-new MongoSingle(process.env.MONGO_URL); //Set the connection but don't verify for errors or anything
+//app.js - Set everything up for the first time
+require('mongo-single')(process.env.MONGO_URL); //Set the connection but don't verify for errors or anything
 // or
-new MongoSingle(process.env.MONGO_URL, function (e, db) { //Set and obtain the connection and inspect for errors
+require('mongo-single')(process.env.MONGO_URL, function (e, db) { //Set and obtain the connection and inspect for errors
 	console.log(arguments);
 });
 ```
@@ -23,10 +21,18 @@ new MongoSingle(process.env.MONGO_URL, function (e, db) { //Set and obtain the c
 
 ```js
 //model.js
-db = require('mongo-single'); //Done!
+db = require('mongo-single')(process.env.MONGO_URL); //Obtian the connection
 ```
 
-Simple as that. 
+Simple as that. If your URL for the db object changes, it will also be cached. Therefore your connections will always be available to be required as long as you keep the same URL.
+
+### Options
+
+You can also pass in a object containing the options for the connection. This is not required but recommended.
+
+```js
+require('mongo-single')(process.env.MONGO_URL, {native_parser: true}); //Set the connection but don't verify for errors or anything
+```
 
 Feel free to submit pull requests and stuff.
 

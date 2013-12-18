@@ -10,12 +10,13 @@ function MongoSingleton (addr, options, cb) {
     if (cb !== undefined) cb('No address found');
     return new Error('No address found');
   }
-  if (MongoSingleton.prototype._db !== undefined && MongoSingleton.prototype._addr === addr) return MongoSingleton.prototype._db;
+  if (MongoSingleton.prototype._dbs[addr] !== undefined) return MongoSingleton.prototype._dbs[addr];
   MongoClient.connect(addr, options, function (e, db) {
-    MongoSingleton.prototype._db = db;
-    MongoSingleton.prototype._addr = addr;
+    if (db) MongoSingleton.prototype._dbs[addr] = db;
     if (cb !== undefined) cb(e, db);
   });
 }
+
+MongoSingleton.prototype._dbs = {};
 
 exports = module.exports = MongoSingleton;
