@@ -19,16 +19,12 @@ new MongoSingle(process.env.MONGO_URL); //Set the connection but don't verify fo
 new MongoSingle(process.env.MONGO_URL, function (e, db) { //Set and obtain the connection and inspect for errors
 	console.log(arguments);
 });
-
-
 ```
 
 
 ```js
 //model.js
-
 db = require('mongo-single'); //Done!
-
 ```
 
 Simple as that. 
