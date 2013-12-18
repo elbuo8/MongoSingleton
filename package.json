@@ -1,0 +1,19 @@
+{
+  "name": "MongoSingleton",
+  "version": "0.0.0",
+  "description": "Simple way to have a single connection to mongodb in your app by using require",
+  "main": "mongo-single.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mongo",
+    "mongodb",
+    "singleton"
+  ],
+  "author": "elbuo8 (Yamil Asusta)",
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "~1.3.23"
+  }
+}
