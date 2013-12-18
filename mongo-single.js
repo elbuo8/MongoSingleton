@@ -1,7 +1,7 @@
 
 var MongoClient = require('mongodb').MongoClient;
 
-function MongoSingleton (addr, options, cb) {
+function MongoSingle (addr, options, cb) {
   if (options instanceof Function) {
     cb = options;
     options = null;
@@ -10,13 +10,13 @@ function MongoSingleton (addr, options, cb) {
     if (cb !== undefined) cb('No address found');
     return new Error('No address found');
   }
-  if (MongoSingleton.prototype._dbs[addr] !== undefined) return MongoSingleton.prototype._dbs[addr];
+  if (MongoSingle.prototype._dbs[addr] !== undefined) return MongoSingle.prototype._dbs[addr];
   MongoClient.connect(addr, options, function (e, db) {
-    if (db) MongoSingleton.prototype._dbs[addr] = db;
+    if (db) MongoSingle.prototype._dbs[addr] = db;
     if (cb !== undefined) cb(e, db);
   });
 }
 
-MongoSingleton.prototype._dbs = {};
+MongoSingle.prototype._dbs = {};
 
-exports = module.exports = MongoSingleton;
+exports = module.exports = MongoSingle;
